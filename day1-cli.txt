@@ -1,0 +1,60 @@
+docker system info
+docker login -
+// show manifast
+docker image ls --digests
+
+docker pull alpine
+docker tag pod-local pod-local:v1.0
+docker push pod-local:v1.0
+ 
+ docker image build -t pod-local .
+docker image inspect pod-local
+docker run -itd --rm -p 99:8080 pod-test
+ 
+docker run --rm -it mcr.microsoft.com/dotnet/core/runtime dotnet --list-runtimes
+docker run --rm -it alpine sh
+
+
+docker image build -t pod-git https://github.com/shaloml/node-docker-sample.git
+docker run -itd --rm -p 88:8080 pod-git
+docker image inspect pod-git
+
+
+
+docker container exec -it 70af28a5545e sh
+
+
+docker logs 16475e1f2815
+
+
+docker run -itd --rm -p 8000:80 --name aspnetcore_sample mcr.microsoft.com/dotnet/core/samples:aspnetapp
+
+ocker run -d --name devtest -v myvol2:/app nginx:latest
+
+docker container exec -it 6a25541cb9d8  sh
+
+docker run -itd --rm -p 8000:80 -v C:\log\ex:/log testvol 
+
+--------------
+volume
+docker volume create fs_shared
+docker run --rm -it --name alpine-mount1 --mount source=fs_shared,target=/app alpine ash
+docker run --rm -it --name alpine-mount2 --mount source=fs_shared,target=/app alpine ash
+docker container exec -it 6a25541cb9d8  sh
+docker container exec -it 6a25541cb9d8  sh
+
+-v
+docker run --rm -it --name alpine1-v1 -v fs_shared:/app alpine sh
+-- windows
+docker run --rm -it --name alpine1-windows -v c:/temp:/app alpine sh
+
+
+
+ 
+
+
+
+ 
+ 
+
+
