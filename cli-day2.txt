@@ -1,0 +1,64 @@
+network
+docker network create -d bridge --subnet 10.0.0.1/24 ps-bridge
+
+docker inspect ps-bridge
+
+docker run -dt --name c1 --network db-layer alpine sleep 1d
+docker run -dt --name c2 --network ps-bridge alpine sleep 1d 
+ docker inspect ps-bridge
+ docker exec -it c1 sh
+ ip a
+ ping 10.0.0.3
+ 
+ 
+ docker container rm $(docker container ls -aq) -f
+
+
+
+ 
+ docker network create -d bridge --subnet 10.100.0.1/24 db-layer
+ docker network create -d bridge --subnet 10.200.0.1/24 app-layer
+
+ docker run -idt --name my-mongo  --network db-layer mongo --serviceExecutor adaptive
+ 
+ docker run -idt --name my-db  -p 8888:8080 --network=db-layer -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=shalom!levi123456'  mcr.microsoft.com/mssql/server:2019-latest
+ 
+###docker run --name my-db -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=SecretP@ssw0rd' hostname my-db -p 1401:1433 -v c:\sqlvolume:/var/opt/mssql -d mcr.microsoft.com/mssql/server:2017-CU10-ubuntu
+docker run --name my-db -e 'ACCEPT_EULA=Y' -e 'MSSQL_SA_PASSWORD=SecretP@ssw0rd' -d -p 1433:1433 --network=db-layer -v c:/sqlvolume:/var/opt/mssql mcr.microsoft.com/mssql/server:2017-CU10-ubuntu
+docker run --name my-db -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=SecretP@ssw0rd' -p 1433:1433 -d --network=db-layer -v c:/sqlvolume/data:/var/opt/mssql/data -v c:/sqlvolume/log:/var/opt/mssql/log mcr.microsoft.com/mssql/server:2019-CU15-ubuntu-20.04
+
+ docker exec -it my-db /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P yourStrong(!)Password
+ 
+ docker image build -t myapp-net .
+ docker create --network=app-layer --name=my-app -v c:\logs:/logs -p:8000:80  myapp-net
+ 
+docker network connect db-layer my-app 
+
+apt-get update
+#ip
+apt install iproute2 -y
+
+#ping
+apt-get install iputils-ping
+
+#curl
+apt-get install curl
+
+#wget
+apt-get install wget
+
+sqlcmd '-Usa' '-Slocalhost,1401' '-Q"SELECT @@VERSION"' '-PyourStrong(!)Password'
+
+1
+2
+3
+ 
+sqlcmd '-Usa' '-Slocalhost,1401' '-Q"SELECT @@VERSION"' '-PSecretP@ssw0rd'
+ 
+
+
+
+ 
+ 
+
+
